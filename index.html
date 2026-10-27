@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Perasmian PALS</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="immersive">
+  <main class="app">
+
+    <!-- STEP 1: Start screen (animated background + start button) -->
+    <section id="startScreen" class="screen full start-screen active">
+      <canvas id="bgCanvas" aria-hidden="true"></canvas>
+      <div class="grid-glow" aria-hidden="true"></div>
+
+      <div class="start-content">
+        <p class="start-kicker">Perasmian Kelab PALS SK KG Bungan</p>
+        <h1 class="start-title">Selamat Datang</h1>
+
+        <button id="startBtn" class="start-btn" aria-label="Start">
+          <span class="start-btn-inner">
+            <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            <span>MULA</span>
+          </span>
+        </button>
+
+        <p class="start-sub">Tekan butang untuk bermula</p>
+      </div>
+    </section>
+
+    <!-- STEP 2: First video -->
+    <section id="video1Screen" class="screen full">
+      <video id="video1" playsinline preload="auto" disablepictureinpicture controlslist="nodownload noremoteplayback">
+        <source src="Gimik-1.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- STEP 3: Palm scan -->
+    <section id="scanScreen" class="screen">
+      <h1>Pengesahan Identiti Diperlukan</h1>
+      <p id="statusText" class="status">Sila letakkan tapak tangan anda di atas pengimbas.</p>
+
+      <button id="palmBtn" class="palm-btn" aria-label="Click the palm to start scanning">
+        <svg viewBox="0 0 200 260" class="palm-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Open right hand, palm facing viewer: thumb, index, middle, ring, pinky -->
+            <path id="palmShape" d="M76 256
+              C74 238 70 222 62 208
+              C50 190 36 172 26 150
+              C20 136 22 122 34 120
+              C44 118 50 126 56 138
+              C60 146 62 150 64 154
+              L64 54
+              C64 42 69 36 75 36
+              C81 36 86 42 86 54
+              L86 100
+              Q89 112 92 100
+              L92 34
+              C92 22 97 16 103 16
+              C109 16 114 22 114 34
+              L114 100
+              Q117 112 120 100
+              L120 48
+              C120 36 125 30 131 30
+              C137 30 142 36 142 48
+              L142 104
+              Q145 116 148 104
+              L148 80
+              C148 68 152 62 158 62
+              C164 62 168 68 168 80
+              L168 150
+              C168 176 158 198 144 214
+              C136 226 134 240 134 256
+              Z"/>
+            <clipPath id="palmClip">
+              <use href="#palmShape"/>
+            </clipPath>
+            <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#00e5ff" stop-opacity="0"/>
+              <stop offset="1" stop-color="#00e5ff" stop-opacity="0.55"/>
+            </linearGradient>
+          </defs>
+
+          <use href="#palmShape" class="palm-fill"/>
+          <use href="#palmShape" class="palm-outline"/>
+
+          <!-- palm lines -->
+          <g class="palm-lines">
+            <path d="M70 140 Q112 124 164 142"/>
+            <path d="M66 160 Q98 178 104 214"/>
+            <path d="M84 178 Q122 168 160 184"/>
+          </g>
+
+          <!-- scanning bar, clipped to palm -->
+          <g clip-path="url(#palmClip)">
+            <rect id="scanBar" class="scan-bar" x="0" y="0" width="200" height="40" fill="url(#scanGrad)"/>
+            <rect id="scanLine" class="scan-line" x="0" y="0" width="200" height="2"/>
+          </g>
+        </svg>
+        <span class="ring r1"></span>
+        <span class="ring r2"></span>
+      </button>
+
+      <div class="progress" aria-hidden="true">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <p id="percent" class="percent">0%</p>
+    </section>
+
+    <!-- STEP 4: Second video -->
+    <section id="video2Screen" class="screen full">
+      <video id="video2" playsinline preload="auto" disablepictureinpicture controlslist="nodownload noremoteplayback">
+        <source src="Gimik-2.mp4" type="video/mp4" />
+      </video>
+    </section>
+
+    <!-- STEP 5: Banner shown after the second video -->
+    <section id="imageScreen" class="screen full">
+      <img id="resultImage" src="banner_2.png" alt="Result" />
+      <p id="typedText" class="typed-text" aria-live="polite"></p>
+      <button id="imgResetBtn" class="ghost-btn">Reset</button>
+    </section>
+
+  </main>
+
+  <!-- overlay used for the fades between screens -->
+  <div id="fadeOverlay" class="fade-overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
